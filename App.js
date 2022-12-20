@@ -1,6 +1,5 @@
 //App component to render home page
 
-
 import React, { Component } from 'react';
 
 // import { StyleSheet, Text, View } from 'react-native';
@@ -21,10 +20,10 @@ const Stack = createStackNavigator();
 //class created to render APP
 export default class ChatApp extends Component {
   render() {
-    
+
     return (
-      //manages the state of the app 
-      <NavigationContainer>  
+      //manages the state of the app
+      <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Start"
         >
