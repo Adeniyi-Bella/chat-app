@@ -73,7 +73,7 @@ export default class Chat extends React.Component {
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name });
 
-    // Get if user is online
+    // check if user is online
     NetInfo.fetch().then((connection) => {
       if (connection.isConnected) {
         this.setState({ isConnected: true });
@@ -106,7 +106,7 @@ export default class Chat extends React.Component {
       } else {
         this.setState({ isConnected: false });
         console.log("offline");
-
+        //if user is offline, load message from async storage
         this.getMessages();
       }
     });
@@ -146,7 +146,8 @@ export default class Chat extends React.Component {
     });
   };
 
-  // storage system to store data globally in the app
+  // save data in the app using async storage
+  //works the same as local storage and session storage in HTML5
   async saveMessages() {
     try {
       await AsyncStorage.setItem(
@@ -158,16 +159,16 @@ export default class Chat extends React.Component {
     }
   }
 
-  // async deleteMessages() {
-  //   try {
-  //     await AsyncStorage.removeItem("messages");
-  //     this.setState({
-  //       messages: [],
-  //     });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
+  async deleteMessages() {
+    try {
+      await AsyncStorage.removeItem("messages");
+      this.setState({
+        messages: [],
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   // create a renderbubble function that returns a bubble using bubble component
   renderBubble(props) {
@@ -212,6 +213,7 @@ export default class Chat extends React.Component {
     });
   };
 
+    //disallow user to send message when offline
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {
