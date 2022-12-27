@@ -14,10 +14,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import MapView from "react-native-maps";
+import CustomActions from '../custom-actions/custom-action'
+
+/**
+ * import functions from firebase SDK
+ */
 const firebase = require("firebase");
 require("firebase/firestore");
 
-// chat class component creation
+/**
+ * Represents a Chat component
+ * @Class Chat - A React class component
+ */
 export default class Chat extends React.Component {
   constructor() {
     super();
@@ -36,7 +44,18 @@ export default class Chat extends React.Component {
       isConnected: false,
     };
 
-    // Connecting to firebase DB
+    /**
+         * Connecting to firebase DB
+         * @function firebaseConfig - firebase configuration
+         * @param {string} apiKey - firebase apiKey
+         * @param {string} authDomain - firebase authDomain
+         * @param {string} projectId - firebase projectId
+         * @param {string} storageBucket - firebase storageBucket
+         * @param {string} messagingSenderId - firebase messagingSenderId
+         * @param {string} appId - firebase appId
+         * @param {string} measurementId - firebase measurementId
+         */
+    
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyBP8KR6hL562JeCkbWvfKx-xeeEAfEnD7E",
@@ -53,7 +72,10 @@ export default class Chat extends React.Component {
     this.referenceChatMessages = firebase.firestore().collection("messages");
   }
 
-  // Get messages locally from user's device
+      /**
+     * @function getMessages
+     * @description Get messages locally from user's device
+     */
 
   async getMessages() {
     let messages = "";
@@ -170,24 +192,32 @@ export default class Chat extends React.Component {
     }
   }
 
-  // create a renderbubble function that returns a bubble using bubble component
+     /**
+    * @function renderBubble
+    * @description - create a renderbubble function that returns a bubble using bubble component
+    * @param {object} props - props
+    */
   renderBubble(props) {
     return (
       <Bubble
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: "#000",
+            backgroundColor: "#00af80",
           },
           left: {
-            backgroundColor: "#fff",
+            backgroundColor: "#e1e1",
           },
         }}
       />
     );
   }
 
-  // retrieve current data in DB
+  /**
+ * @name renderBubble
+ * @description retrieve current data in DB
+ * @param {object} props - props
+ */
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // go through each document
@@ -221,27 +251,36 @@ export default class Chat extends React.Component {
     }
   }
 
-  // renderCustomActions = (props) => {
-  //   return <CustomActions {...props} />;
-  // };
+  /**
+     * @function renderCustomActions
+     * @description - renders the action button by rendering customactions component 
+     */
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />;
+  };
 
-  // renderCustomView(props) {
-  //   const { currentMessage } = props;
-  //   if (currentMessage.location) {
-  //     return (
-  //       <MapView
-  //         style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
-  //         region={{
-  //           latitude: currentMessage.location.latitude,
-  //           longitude: currentMessage.location.longitude,
-  //           latitudeDelta: 0.0922,
-  //           longitudeDelta: 0.0421,
-  //         }}
-  //       />
-  //     );
-  //   }
-  //   return null;
-  // }
+    /**
+     * @function renderCustomView
+     * @description - renders the location map on chat screen
+     * @param {object} props - props
+     */
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  }
 
   render() {
     // Set the color property as background color for the chat screen
@@ -256,8 +295,8 @@ export default class Chat extends React.Component {
             messages={this.state.messages}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
             onSend={(messages) => this.onSend(messages)}
-            // renderActions={this.renderCustomActions.bind(this)}
-            // renderCustomView={this.renderCustomView.bind(this)}
+            renderActions={this.renderCustomActions.bind(this)}
+            renderCustomView={this.renderCustomView.bind(this)}
             user={{
               _id: this.state.uid,
               avatar: "https://placeimg.com/140/140/any",
