@@ -74,7 +74,7 @@ export default class CustomActions extends React.Component {
         }
     };
 
-    //Upload images to Firebase
+    //Upload data (image, location etc) to Firebase
     uploadImageFetch = async (uri) => {
         const blob = await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -137,6 +137,8 @@ export default class CustomActions extends React.Component {
 
     render() {
         return (
+
+            // A wrapper for making views respond properly to touches
             <TouchableOpacity
                 accessible={true}
                 accessibilityLabel='More options'
@@ -152,6 +154,7 @@ export default class CustomActions extends React.Component {
     }
 }
 
+//styles for the upload action button
 const styles = StyleSheet.create({
     container: {
         width: 26,
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
     },
 });
 
+//Defining prop types for action sheet
 CustomActions.contextTypes = {
     actionSheet: PropTypes.func,
 };

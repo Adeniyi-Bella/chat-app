@@ -14,7 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import MapView from "react-native-maps";
-import CustomActions from '../custom-actions/custom-action'
+import CustomActions from "../custom-actions/custom-action";
 
 /**
  * import functions from firebase SDK
@@ -45,17 +45,17 @@ export default class Chat extends React.Component {
     };
 
     /**
-         * Connecting to firebase DB
-         * @function firebaseConfig - firebase configuration
-         * @param {string} apiKey - firebase apiKey
-         * @param {string} authDomain - firebase authDomain
-         * @param {string} projectId - firebase projectId
-         * @param {string} storageBucket - firebase storageBucket
-         * @param {string} messagingSenderId - firebase messagingSenderId
-         * @param {string} appId - firebase appId
-         * @param {string} measurementId - firebase measurementId
-         */
-    
+     * Connecting to firebase DB
+     * @function firebaseConfig - firebase configuration
+     * @param {string} apiKey - firebase apiKey
+     * @param {string} authDomain - firebase authDomain
+     * @param {string} projectId - firebase projectId
+     * @param {string} storageBucket - firebase storageBucket
+     * @param {string} messagingSenderId - firebase messagingSenderId
+     * @param {string} appId - firebase appId
+     * @param {string} measurementId - firebase measurementId
+     */
+
     if (!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyBP8KR6hL562JeCkbWvfKx-xeeEAfEnD7E",
@@ -72,10 +72,10 @@ export default class Chat extends React.Component {
     this.referenceChatMessages = firebase.firestore().collection("messages");
   }
 
-      /**
-     * @function getMessages
-     * @description Get messages locally from user's device
-     */
+  /**
+   * @function getMessages
+   * @description Get messages locally from user's device
+   */
 
   async getMessages() {
     let messages = "";
@@ -140,7 +140,7 @@ export default class Chat extends React.Component {
       this.authUnsubscribe();
     }
   }
-  
+
   // when user sends messages i.e click on send, use gifted chat to append the message
   onSend(messages = []) {
     this.setState(
@@ -192,11 +192,11 @@ export default class Chat extends React.Component {
     }
   }
 
-     /**
-    * @function renderBubble
-    * @description - create a renderbubble function that returns a bubble using bubble component
-    * @param {object} props - props
-    */
+  /**
+   * @function renderBubble
+   * @description - create a renderbubble function that returns a bubble using bubble component
+   * @param {object} props - props
+   */
   renderBubble(props) {
     return (
       <Bubble
@@ -214,10 +214,10 @@ export default class Chat extends React.Component {
   }
 
   /**
- * @name renderBubble
- * @description retrieve current data in DB
- * @param {object} props - props
- */
+   * @name renderBubble
+   * @description retrieve current data in DB
+   * @param {object} props - props
+   */
   onCollectionUpdate = (querySnapshot) => {
     const messages = [];
     // go through each document
@@ -237,13 +237,13 @@ export default class Chat extends React.Component {
         location: data.location || null,
       });
     });
-    // update the state of messages 
+    // update the state of messages
     this.setState({
       messages,
     });
   };
 
-    //disallow user to send message when offline
+  //disallow user to send message when offline
   renderInputToolbar(props) {
     if (this.state.isConnected == false) {
     } else {
@@ -252,19 +252,20 @@ export default class Chat extends React.Component {
   }
 
   /**
-     * @function renderCustomActions
-     * @description - renders the action button by rendering customactions component 
-     */
+   * @function renderCustomActions
+   * @description - renders the action button by rendering customactions component
+   */
   renderCustomActions = (props) => {
     return <CustomActions {...props} />;
   };
 
-    /**
-     * @function renderCustomView
-     * @description - renders the location map on chat screen
-     * @param {object} props - props
-     */
+  /**
+   * @function renderCustomView
+   * @description - renders the location map on chat screen
+   * @param {object} props - props
+   */
   renderCustomView(props) {
+    // console.log(props);
     const { currentMessage } = props;
     if (currentMessage.location) {
       return (
@@ -290,7 +291,7 @@ export default class Chat extends React.Component {
         <View style={[styles.container, { backgroundColor: color }]}>
           <Text>{this.state.loggedInText}</Text>
           <GiftedChat
-          // bind the bubble to the messages to be sent
+            // bind the bubble to the messages to be sent
             renderBubble={this.renderBubble.bind(this)}
             messages={this.state.messages}
             renderInputToolbar={this.renderInputToolbar.bind(this)}
