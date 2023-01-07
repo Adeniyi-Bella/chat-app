@@ -20,13 +20,14 @@ This is a chat app for mobile devices built with React-Native. It provides users
 - Install the Expo app on your mobile device (available in Google Play Store and Apple Store)
 
 # Getting Started
-- To install all the dependencies: `npm i`.
+- clone the repo.
+- To install all the dependencies: `npm i` in the root.
 
 - To start the app: `expo/npm start`.
 
 - Launch app on physical device: scan QR code in Expo GUI
 
-- Launch app on emulator: Press "Run on Android device/emulator in Expo GUI
+- Launch app on emulator: Type `a` in the console
 
 # Database information
 This project uses [Google Firebase/Firestore](https://firebase.google.com/) for data storage.
@@ -46,7 +47,7 @@ require('firebase/firestore');
 ```
 5. Back in the Firestore project in your browser, open up "Settings", then "General" tab. Under the section "Your apps" you can generate configurations for different platforms. Here, click "Firestore for Web". Copy the contents of the config object.
 
-6. In your Chat.js file create a constructor in the App class. Here you can paste the data you copied from config object.
+6. In your Chat.js file located in `component/chat-screen`, create a constructor in the App class. Here you can paste the data you copied from config object.
 
 ## Example
 ```
