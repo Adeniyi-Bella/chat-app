@@ -10,7 +10,7 @@ This is a chat app for mobile devices built with React-Native. It provides users
 - Data gets stored online and offline.
 
 # Prerequisites
-- Install [Expo](https://expo.dev/): npm install expo-cli -g.
+- Install [Expo](https://expo.dev/): `npm install expo-cli -g`.
 
 - For Windows and Linux: Install [Android Studio](https://developer.android.com/studio).
   For more information how to set up an emulator, look [here](https://docs.expo.dev/workflow/android-studio-emulator/?redirected).
